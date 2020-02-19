@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import TicTacToe from './components/tictactoe/index.js';
+import Login from './components/login/index.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      login:false, 
+          users:[{username:"test", 
+                  password:"test"}]};
+  }
+  loginUser(){
+        this.setState({login:true});
+  }
+  logoutUser(){
+    this.setState({login:false});
+  }
+    render(){
+    return (
+      <div> {
+      (this.state.login) ?
+      <TicTacToe logoutUser={() => this.logoutUser()}/> :
+      <Login users={this.state.users} 
+        loginUser={() => this.loginUser()}/>
+      }
+      </div>
+   )
+  }
 }
 
 export default App;
